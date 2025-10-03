@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.12)
+project("aoc2024")
+
+set(CMAKE_CXX_STANDARD 23)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+
+add_library(common SHARED lib/common.cpp lib/common.h)
+add_library(grid SHARED lib/grid.cpp lib/grid.h)
+
+function(add_day DAY)
+    add_executable("${DAY}" "${DAY}/${DAY}.cpp")
+    target_include_directories("${DAY}" PRIVATE "${CMAKE_SOURCE_DIR}/lib")
+    set_target_properties("${DAY}" PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/${DAY}")
+
+    if(${ARGC} GREATER 1)
+        target_link_libraries("${DAY}" PRIVATE "${ARGN}")
+    endif()
+endfunction()
+
+add_day(day01)
+add_day(day02 common)
+add_day(day03 common)
+add_day(day04 common)
+add_day(day05 common)
+add_day(day07 common)
+add_day(day08 common grid)
+add_day(day09 common)
+add_day(day10 common grid)
+add_day(day11 common)
+add_day(day12 common grid)
+add_day(day13 common)
+add_day(day14 common)
+add_day(day15 common grid)
+add_day(day22 common)
+add_day(day25 common)
